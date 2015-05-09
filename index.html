@@ -5,21 +5,79 @@
     <link href="css/style.css" rel="stylesheet"/>  
   </head>
   <body>
-    <div class="container">
-      <div class="messageContainer">
-        
+    
+  </div>
+  <div class="container">
+    <div id="genre-box">
+      <div class="col-xs-10">
+        <select class="form-control" id="genre">
+          <option selected="selected">Choose a Genre</option>
+          <option value="0">Hip pop</option>
+          <option value="1">Rock</option>
+          <option value="2">K-pop</option>
+          <option value="3">J-pop</option>
+          <option value="4">Rap</option>  
+        </select>
       </div>
-      <div class="messageArea">
-        <textarea rows="4" placeholder="Type a Message" class="col-xs-8"></textarea>
-        <div class="col-xs-3 btns">
-          <div class="col-sm-12 btn btn-primary">Send Message</div>
-          <div class="col-sm-12 btn btn-default">Select Song</div>
-        </div>
+      <div class="col-xs-2">
+        <div class="btn btn-primary" id="search">Search</div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="http://connect.soundcloud.com/sdk.js"></script>
-    <script src="js/script.js"></script>
+    <div  id="box">
+      
+    </div>
+  </div>
+
+
+  <script src="http://connect.soundcloud.com/sdk.js"></script>
+  <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!-- script src="js/script.js"></script -->
+
+  <script>
+    SC.initialize({
+      client_id: '5aa8e389ba4e24b6106af5159ab3e344',
+      redirect_uri: 'http://external.codecademy.com/soundcloud.html'
+    });
+
+    // find all sounds of buskers licensed under 'creative commons share alike'
+    $('#search').click(function(){
+      $('#box').empty();
+      var genre = $('#genre'); 
+      var g = document.getElementById("genre").selectedIndex;
+      if(g == 1){
+        search = "hip-pop";
+      } else if(g == 2){
+        search = "rock"
+      } else if(g == 3){
+        search = "k-pop"
+      } else if(g == 4){
+        search = "j-pop"
+      } else if(g == 5){
+        search = "rap"
+      }
+      console.log(search)
+      SC.get('/tracks', { genres: search}, function(tracks) {
+        console.log(tracks);
+        for(var x = 0; x < tracks.length; x++){
+          console.log(tracks[x]);  
+        var track =  tracks[x].stream_url;
+            // SC.stream(track, function(sound){
+            //   sound.play();
+            // });
+        var ms = tracks[x].duration,
+        min = Math.floor((ms/1000/60) << 0),
+        sec = Math.floor((ms/1000) % 60);
+
+        if(tracks[x].artwork_url == null){
+          tracks[x].artwork_url = "http://www.engraversnetwork.com/files/placeholder.jpg"
+        }
+        $('#box').append("<div class='well song col-xs-12' value='"+ x +"'><div class='image col-xs-1'><img src='"+ tracks[x].artwork_url +"'/></div><div class='col-xs-11'><p>" + tracks[x].title + "</p><p>" + min + ":" + sec + "</p></div></div>")
+        }
+      });
+    });
+    
+
+  </script>
   </body>
-</html>
+</html> 
