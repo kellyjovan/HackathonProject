@@ -1,3 +1,13 @@
+
+body{
+  background:url('http://wallpoper.com/images/00/28/58/17/orange-background_00285817.jpg');
+  margin-top:10px;
+}
+
+#genre-box{
+  margin-bottom:50px;
+}
+
 .messageArea{
   position:absolute;
   bottom: 0;
@@ -8,3 +18,9 @@
 img{
   width: 100%;
 }
+
+.well{
+  background-color:white;
+   box-shadow:2px 2px 2px 2px black;
+}
+
