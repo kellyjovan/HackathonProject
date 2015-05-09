@@ -1,10 +1,9 @@
 SC.initialize({
-  client_id: 'ece5c17538e1b2e30cb10d327154cff0',
+  client_id: '340f063c670272fac27cfa67bffcafc4',
+  redirect_uri: 'http://external.codecademy.com/soundcloud.html'
 });
 
 // initiate auth popup
-SC.connect(function() {
      SC.get('/tracks', { genres: 'punk'}, function(tracks) {
     console.log(tracks);
-  });
 });

@@ -2,10 +2,38 @@
 <html>
   <head>
     <link href="css/style.css"/>  
+  <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-  
-  <script src="js/script.js"></script>
+
+  <div id="box">
+  </div>
+
+
   <script src="http://connect.soundcloud.com/sdk.js"></script>
+<script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!-- script src="js/script.js"></script -->
+
+  <script>
+    SC.initialize({
+      client_id: '5aa8e389ba4e24b6106af5159ab3e344',
+      redirect_uri: 'http://external.codecademy.com/soundcloud.html'
+    });
+
+    // find all sounds of buskers licensed under 'creative commons share alike'
+    SC.get('/tracks', { genres: 'rock'}, function(tracks) {
+      console.log(tracks);
+      for(var x = 0; x < 10; x++){
+        console.log(tracks[x]);  
+      var track =  tracks[x].stream_url;
+          // SC.stream(track, function(sound){
+          //   sound.play();
+          // });
+      $('#box').append("<p value='"+ x + "'>" + tracks[x].title + "</p>")
+      }
+    });
+
+  </script>
   </body>
 </html>
