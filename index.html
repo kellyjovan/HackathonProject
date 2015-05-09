@@ -57,29 +57,43 @@
       } else if(g == 5){
         search = "rap"
       }
-      console.log(search)
+      console.log(search);
+      var track;
+
       SC.get('/tracks', { genres: search}, function(tracks) {
         console.log(tracks);
         for(var x = 0; x < tracks.length; x++){
           console.log(tracks[x]);  
-        var track =  tracks[x].stream_url;
+        track =  tracks[x].stream_url;
             // SC.stream(track, function(sound){
             //   sound.play();
             // });
         var ms = tracks[x].duration,
-        min = Math.floor((ms/1000/60) << 0),
-        sec = Math.floor((ms/1000) % 60);
+          min = Math.floor((ms/1000/60) << 0),
+          sec = Math.floor((ms/1000) % 60);
 
         if(tracks[x].artwork_url == null){
-          tracks[x].artwork_url = "http://www.engraversnetwork.com/files/placeholder.jpg"
+          tracks[x].artwork_url = "http://www.engraversnetwork.com/files/placeholder.jpg";
         }
-        $('#box').append("<div class='well song col-xs-12' value='"+ x +"'><div class='image col-xs-1'><img src='"+ tracks[x].artwork_url +"'/></div><div class='col-xs-11'><p>" + tracks[x].title + "</p><p>" + min + ":" + sec + "</p></div></div>")
+
+        console.log(track);
+        $('#box').append("<div class='well song col-xs-12' value='"+ x +"'><div class='image col-xs-1'><img src='"+ tracks[x].artwork_url +"'/></div><div class='col-xs-11'><p>" + tracks[x].title + "</p><p>" + min + ":" + sec + "</p><button onclick='PlaySong("+ track +")' value='"+ x +"' >Play</button></div></div>")
         }
       });
     });
     
     localStorage.setItem("choice", track);
 
+
+    function PlaySong(song){
+      alert(song)
+    }
+
+/*
+    function imgString(trackImg){
+      return "<img src='" + + "' >"
+    }
+*/
   </script>
   </body>
 </html> 
